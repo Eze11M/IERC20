@@ -1,50 +1,35 @@
-# Remix IDE Blank Template
+# IERC20 solidity contract implementation
 
-Welcome to your new **Remix IDE Blank Workspace**!
+This repo contains a manual implementation of the Ethereum Request for Comment 20 token.
 
-This workspace has been generated using the "Blank Template" option in Remix IDE. It starts with only minimal configuration files, giving you full control to build your project from scratch.
+## The contract features:
 
----
+   1. A "IERC20" Interface containing the minimal standart ERC20 functions and events.
+   2. A "ERC20" contract that implements the IERC20 token interface plus "mint(uint256)" and "burn(uint256)" functions.
 
-## What's Included?
+### The IERC20 Interface
 
-- **`remix.config.json`**: Default Remix IDE workspace configuration.
-- **`.prettierrc.json`**: Basic Prettier formatting rules for code consistency.
+This interface implements the minimal standar for ERC20 tokens, having:
+   - A "Transfer(address indexed, address indexed, uint256)" event that emits the indexed address of the balance account "from", the balance account "to", and the amount of ERC20 sended "from -> to".
+   - A "Approval(address indexed, address indexed, uint256)" event that emits the indexed address of the balance owner, the indexed address of the approved sender, and the amount of ERC20 approved "owner = sender".
+   - An external view "totalSupply()" function returning the total supply of the ERC20 circulating token.
+   - An external view "balanceOf(address)" function returning the registered address current balance of the ERC20 token.
+   - An external "transfer(address, uint256)" function that transfers amount of ERC20 from one account to another returning the transaction success or not success.
+   - An external view "allowance(address, address)" function returning the amount of abled ERC20 a spender can spend from a ERC20 owner.
+   - An external "approve(address, uint256)" function that allows the sender to approve a spender to spend a given amount of ERC20 token owned returning the transaction success.
+   - An external "transferFrom(address, address, uint256)" function that lets the sender, in which context is now the spender, to spend ERC20 tokens abled to him transfering from one account to another returning the transaction success.
 
-No contract files, folders, or sample code are included.
 
----
+### The ERC20 implementation
 
-## Getting Started
+This implementation of IERC20 Interface acomplishes the aforementioned description of the interface. However, also implements:
+   - A public string "name" state variable that holds the ERC20 token name.
+   - A public string "symbol" state variable that holds the ERC20 token symbol.
+   - A public uint8 "decimals" state variable that holds the ERC20 token amount of decimals (also called token divisibility).
+   - A external "mint(uint256)" function that lets anyone mint a given amount of tokens to the ERC20 implementation, that will go directly to the sender balance.
+   - A external "burn(uint256)" cuntion that lets anyone burn a given amount of tokens to the ERC20 implementation, that will dissapear directly from the sender balance.
 
-1. **Create Files & Folders**
 
-   - Add new Solidity files, scripts, or folders as needed for your project.
-   - You can organize your workspace structure in any way you like.
+## Advise:
 
-2. **Setup Project Settings** (Optional)
-
-   - Modify `remix.config.json` or add additional configuration files as your project grows.
-
-3. **Write & Compile Smart Contracts**
-
-   - Use the **Solidity Compiler** and **Deploy & Run Transactions** plugins (available in Remix IDE's left sidebar) to develop and test your contracts.
-
-4. **(Optional) Initialize Git**
-
-   - If you checked "Initialize as a Git repository" during workspace creation, you can start committing your code immediately.
-
----
-
-## Useful Resources
-
-- [Remix IDE Documentation](https://remix-ide.readthedocs.io/)
-- [Solidity Language Documentation](https://docs.soliditylang.org/)
-- [Remix IDE Community Forum](https://forum.remix.ethereum.org/)
-
----
-
-Happy coding! 🚀 
-
-_Remix IDE Team_
-
+The implementation has practice purpouses only. The balance erros, underflows and overflows are delegated directly to solidity checked math itself. This contract is merely an example of a ERC20 implementation and interface, so its not recommended nor intended to be a ready-to-copy implementation.
